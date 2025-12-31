@@ -222,3 +222,39 @@ def generate_statistics():
     
     logger.info(f"Generated statistics: {stats}")
     return stats
+
+
+@shared_task(bind=True, max_retries=2)
+def process_captured_frame_task(self, capture_data: dict):
+    """
+    Process a captured frame from live camera feed.
+    
+    Args:
+        capture_data: Dictionary with capture information
+    """
+    try:
+        file_path = capture_data['path']
+        
+        # Create document record
+        from django.core.files import File
+        
+        with open(file_path, 'rb') as f:
+            document = OCRDocument.objects.create(
+                file=File(f, name=os.path.basename(file_path)),
+                filename=f"camera_capture_{capture_data['timestamp']}.png",
+                file_size=os.path.getsize(file_path),
+                file_type='image/png',
+                status='pending'
+            )
+        
+        # Process through OCR
+        return process_ocr_task(str(document.id), language='eng')
+        
+    except Exception as exc:
+        error_msg = f"Error processing captured frame: {str(exc)}"
+        logger.error(error_msg, exc_info=True)
+        
+        if self.request.retries < self.max_retries:
+            raise self.retry(exc=exc, countdown=30)
+        
+        return {'success': False, 'error': error_msg}

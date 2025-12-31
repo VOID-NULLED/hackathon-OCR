@@ -64,8 +64,8 @@ services:
       retries: 3
       start_period: 40s
     networks:
-    restart: unless-stopped
       - ocr_network
+    restart: unless-stopped
 
   # Celery Worker
   celery_worker:
@@ -98,6 +98,8 @@ services:
     volumes:
       - .:/app
     env_file:
+      - .env
+    depends_on:
       web:
         condition: service_healthy
       redis:
@@ -105,8 +107,6 @@ services:
     networks:
       - ocr_network
     restart: unless-stopped
-    networks:
-      - ocr_network
 
   # Flower (Celery monitoring)
   flower:
@@ -118,6 +118,8 @@ services:
     ports:
       - "5555:5555"
     env_file:
+      - .env
+    depends_on:
       web:
         condition: service_healthy
       redis:
@@ -125,8 +127,6 @@ services:
     networks:
       - ocr_network
     restart: unless-stopped
-    networks:
-      - ocr_network
 
 volumes:
   postgres_data:

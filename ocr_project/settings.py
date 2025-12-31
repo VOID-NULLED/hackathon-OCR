@@ -167,6 +167,10 @@ OCR_ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'tiff', 'pdf']
 OCR_TESSERACT_PATH = config('OCR_TESSERACT_PATH', default=None)
 OCR_LANGUAGES = config('OCR_LANGUAGES', default='eng').split(',')
 
+# Camera Settings
+AUTO_START_CAMERA = config('AUTO_START_CAMERA', default=True, cast=bool)
+CAMERA_ID = config('CAMERA_ID', default=0, cast=int)
+
 # Logging
 LOGGING = {
     'version': 1,
