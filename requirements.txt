@@ -1,0 +1,33 @@
+# Core Django
+Django==5.0
+djangorestframework==3.14.0
+django-cors-headers==4.3.1
+python-decouple==3.8
+
+# Database
+psycopg2-binary==2.9.9
+
+# Celery for async processing
+celery==5.3.4
+redis==5.0.1
+django-celery-results==2.5.1
+django-celery-beat==2.5.0
+flower==2.0.1
+
+# OCR Libraries
+pytesseract==0.3.10
+Pillow==10.1.0
+pdf2image==1.16.3
+
+# Additional image processing
+opencv-python-headless==4.8.1.78
+
+# WSGI Server
+gunicorn==21.2.0
+
+# Utilities
+python-magic==0.4.27
+python-magic-bin==0.4.14
+
+# Development
+ipython==8.18.1
