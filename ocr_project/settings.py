@@ -172,6 +172,9 @@ AUTO_START_CAMERA = config('AUTO_START_CAMERA', default=True, cast=bool)
 CAMERA_ID = config('CAMERA_ID', default=0, cast=int)
 
 # Logging
+import os
+os.makedirs(BASE_DIR / 'logs', exist_ok=True)
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
