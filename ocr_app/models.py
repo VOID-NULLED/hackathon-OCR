@@ -2,8 +2,12 @@
 Models for OCR application.
 """
 from django.db import models
+from django.db.models import JSONField
 from django.core.validators import FileExtensionValidator
 from django.utils import timezone
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from celery import shared_task
 import uuid
 
 
@@ -223,3 +227,60 @@ class ProcessingLog(models.Model):
     
     def __str__(self):
         return f"[{self.level.upper()}] {self.document.filename} - {self.message[:50]}"
+
+
+class FrameMetadata(models.Model):
+    """
+    Model to store frame-level metadata for real-time OCR camera captures.
+    Tracks both raw and enhanced OCR results, image quality metrics.
+    """
+    timestamp = models.DateTimeField(auto_now_add=True, primary_key=True)
+    camera = models.CharField(max_length=50)
+    blur_var = models.FloatField()  # Laplacian variance
+    illum_mean = models.FloatField()  # Brightness mean
+    enhanced = models.BooleanField(default=False)
+    count = models.IntegerField()  # Post-enhance wagon count
+    ocr = models.CharField(max_length=20, blank=True)
+    ocr_conf = models.FloatField()  # Post-enhance OCR conf
+    raw_count = models.IntegerField(null=True, blank=True)
+    raw_ocr = models.CharField(max_length=20, blank=True)
+    raw_ocr_conf = models.FloatField(default=0.0)
+    metrics = JSONField(default=dict)
+
+    class Meta:
+        db_table = 'frame_metadata'
+        unique_together = ['timestamp', 'camera']
+        indexes = [
+            models.Index(fields=['timestamp', 'camera']),
+            models.Index(
+                fields=['blur_var'],
+                name='idx_blur_desc',
+            ),
+        ]
+
+    def __str__(self):
+        return f"Frame {self.timestamp} - Camera {self.camera}"
+    
+    def accuracy_improvement(self):
+        """Calculate OCR accuracy improvement from raw to enhanced."""
+        if self.enhanced and self.raw_ocr_conf > 0:
+            return (
+                (self.ocr_conf - self.raw_ocr_conf)
+                / self.raw_ocr_conf
+                * 100
+            )
+        return 0
+
+
+@shared_task
+def trigger_analytics(camera):
+    """Enqueue rollup computation."""
+    # Lazy import to avoid circular dependency
+    from .tasks import compute_analytics
+    compute_analytics.delay(camera)
+
+
+@receiver(post_save, sender=FrameMetadata)
+def on_save_trigger(sender, instance, **kwargs):
+    """Single, authoritative trigger point for analytics."""
+    trigger_analytics.delay(instance.camera)

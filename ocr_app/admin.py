@@ -1,4 +1,5 @@
 from django.contrib import admin
+from . import models
 from .models import OCRDocument, OCRResult, CodeBlock, ProcessingLog
 
 
@@ -64,3 +65,38 @@ class ProcessingLogAdmin(admin.ModelAdmin):
     def message_preview(self, obj):
         return obj.message[:100] + '...' if len(obj.message) > 100 else obj.message
     message_preview.short_description = 'Message'
+
+
+@admin.register(models.FrameMetadata)
+class FrameMetadataAdmin(admin.ModelAdmin):
+    list_display = ['timestamp', 'camera', 'enhanced', 'blur_var', 'illum_mean', 'ocr_conf', 'raw_ocr_conf', 'accuracy_display']
+    list_filter = ['camera', 'enhanced', 'timestamp']
+    search_fields = ['camera', 'ocr', 'raw_ocr']
+    readonly_fields = ['timestamp', 'accuracy_improvement']
+    
+    fieldsets = (
+        ('Camera Info', {
+            'fields': ('timestamp', 'camera')
+        }),
+        ('Quality Metrics', {
+            'fields': ('blur_var', 'illum_mean', 'enhanced')
+        }),
+        ('Enhanced OCR Results', {
+            'fields': ('ocr', 'ocr_conf', 'count')
+        }),
+        ('Raw OCR Results', {
+            'fields': ('raw_ocr', 'raw_ocr_conf', 'raw_count')
+        }),
+        ('Analytics', {
+            'fields': ('metrics', 'accuracy_improvement')
+        }),
+    )
+    
+    def accuracy_display(self, obj):
+        """Display accuracy improvement percentage."""
+        improvement = obj.accuracy_improvement()
+        if improvement > 0:
+            return f"+{improvement:.2f}%"
+        return f"{improvement:.2f}%"
+    accuracy_display.short_description = 'Accuracy Improvement'
+

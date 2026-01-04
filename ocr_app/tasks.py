@@ -228,14 +228,72 @@ def generate_statistics():
 def process_captured_frame_task(self, capture_data: dict):
     """
     Process a captured frame from live camera feed.
+    Creates FrameMetadata record with quality metrics and OCR results.
     
     Args:
         capture_data: Dictionary with capture information
     """
     try:
-        file_path = capture_data['path']
+        from .models import FrameMetadata
+        from .gpu_services import get_gpu_ocr_service
+        import cv2
+        from django.utils import timezone
         
-        # Create document record
+        file_path = capture_data['path']
+        camera_id = capture_data.get('camera_id', 'camera_0')
+        
+        # Load image
+        image = cv2.imread(file_path)
+        if image is None:
+            raise ValueError(f"Failed to load image: {file_path}")
+        
+        # Initialize GPU OCR service
+        gpu_ocr = get_gpu_ocr_service()
+        
+        # Process RAW (before enhancement)
+        raw_result = gpu_ocr.process_image_from_array(image, enhanced=False)
+        
+        # Process ENHANCED (after enhancement - if enhancement data exists)
+        enhanced_result = capture_data.get('enhanced_result')
+        if not enhanced_result:
+            # If no enhanced result provided, use raw as enhanced
+            enhanced_result = raw_result
+            enhanced_flag = False
+        else:
+            enhanced_flag = True
+        
+        # Extract wagon count (word count for now, customize as needed)
+        raw_count = raw_result.get('word_count', 0)
+        enhanced_count = enhanced_result.get('word_count', 0)
+        
+        # Create FrameMetadata record
+        frame_metadata = FrameMetadata.objects.create(
+            camera=camera_id,
+            blur_var=enhanced_result.get('blur_variance', 0),
+            illum_mean=enhanced_result.get('illumination_mean', 0),
+            enhanced=enhanced_flag,
+            count=enhanced_count,
+            ocr=enhanced_result.get('text', '')[:20],  # Max 20 chars
+            ocr_conf=enhanced_result.get('confidence', 0),
+            raw_count=raw_count,
+            raw_ocr=raw_result.get('text', '')[:20],  # Max 20 chars
+            raw_ocr_conf=raw_result.get('confidence', 0),
+            metrics={
+                'processing_time': enhanced_result.get('processing_time', 0),
+                'gpu_used': enhanced_result.get('gpu_used', False),
+                'capture_timestamp': capture_data.get('timestamp'),
+                'file_path': file_path
+            }
+        )
+        
+        logger.info(
+            f"Created FrameMetadata: {frame_metadata.timestamp} - "
+            f"Camera: {camera_id}, Blur: {frame_metadata.blur_var:.2f}, "
+            f"OCR Conf: {frame_metadata.ocr_conf:.2f}%, "
+            f"Improvement: {frame_metadata.accuracy_improvement():.2f}%"
+        )
+        
+        # Also create OCRDocument record for backward compatibility
         from django.core.files import File
         
         with open(file_path, 'rb') as f:
@@ -247,7 +305,7 @@ def process_captured_frame_task(self, capture_data: dict):
                 status='pending'
             )
         
-        # Process through OCR
+        # Process through OCR pipeline
         return process_ocr_task(str(document.id), language='eng')
         
     except Exception as exc:
@@ -258,3 +316,59 @@ def process_captured_frame_task(self, capture_data: dict):
             raise self.retry(exc=exc, countdown=30)
         
         return {'success': False, 'error': error_msg}
+
+
+
+@shared_task
+def compute_analytics(camera):
+    """
+    Compute analytics/rollup for a camera.
+    Called automatically when FrameMetadata is saved.
+    
+    Args:
+        camera: Camera identifier
+    """
+    from django.db.models import Avg, Count, Max, Min
+    from .models import FrameMetadata
+    from datetime import timedelta
+    from django.utils import timezone
+    
+    try:
+        # Get recent frames (last 24 hours)
+        cutoff = timezone.now() - timedelta(hours=24)
+        frames = FrameMetadata.objects.filter(
+            camera=camera,
+            timestamp__gte=cutoff
+        )
+        
+        # Calculate analytics
+        analytics = frames.aggregate(
+            total_frames=Count('timestamp'),
+            avg_blur=Avg('blur_var'),
+            avg_illumination=Avg('illum_mean'),
+            avg_confidence=Avg('ocr_conf'),
+            avg_raw_confidence=Avg('raw_ocr_conf'),
+            enhanced_count=Count('timestamp', filter=models.Q(enhanced=True))
+        )
+        
+        # Calculate average accuracy improvement
+        improvements = [
+            frame.accuracy_improvement() 
+            for frame in frames 
+            if frame.enhanced and frame.raw_ocr_conf > 0
+        ]
+        
+        avg_improvement = sum(improvements) / len(improvements) if improvements else 0
+        
+        analytics['avg_accuracy_improvement'] = avg_improvement
+        analytics['camera'] = camera
+        analytics['timestamp'] = timezone.now()
+        
+        logger.info(f"Analytics for camera {camera}: {analytics}")
+        
+        return analytics
+        
+    except Exception as e:
+        logger.error(f"Error computing analytics for camera {camera}: {e}")
+        return {'error': str(e), 'camera': camera}
+
