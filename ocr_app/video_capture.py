@@ -1,6 +1,6 @@
 """
 Real-time video capture and OCR detection service.
-Monitors camera feed and automatically captures text/code.
+Monitors camera feed and automatically captures text/code using GPU-accelerated OCR.
 """
 import cv2
 import numpy as np
@@ -10,8 +10,6 @@ import threading
 from typing import Optional, Tuple, Dict
 from collections import deque
 from django.conf import settings
-import pytesseract
-from PIL import Image
 
 logger = logging.getLogger(__name__)
 
@@ -67,16 +65,21 @@ class VideoEnhancer:
 
 
 class TextDetector:
-    """Detect text and code in video frames."""
+    """Detect text and code in video frames using GPU-accelerated OCR."""
     
     def __init__(self, confidence_threshold: float = 0.6):
         self.confidence_threshold = confidence_threshold
         self.last_detection_time = 0
         self.detection_cooldown = 2.0  # seconds
+        
+        # Initialize GPU OCR service
+        from .gpu_services import get_gpu_ocr_service
+        self.gpu_ocr = get_gpu_ocr_service()
+        logger.info(f"TextDetector initialized with GPU OCR (GPU: {self.gpu_ocr.use_gpu})")
     
     def has_text(self, frame: np.ndarray) -> Tuple[bool, float, str]:
         """
-        Check if frame contains significant text.
+        Check if frame contains significant text using GPU OCR.
         
         Returns:
             Tuple of (has_text, confidence, preview_text)
@@ -87,33 +90,25 @@ class TextDetector:
             return False, 0.0, ""
         
         try:
-            # Convert to PIL Image
-            rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            pil_image = Image.fromarray(rgb_frame)
+            # Use GPU OCR for detection
+            result = self.gpu_ocr.process_image_from_array(frame, enhanced=False)
             
-            # Quick OCR check
-            data = pytesseract.image_to_data(pil_image, output_type=pytesseract.Output.DICT)
-            
-            # Filter confident text
-            confidences = [int(conf) for conf in data['conf'] if int(conf) > 0]
-            texts = [text for i, text in enumerate(data['text']) 
-                    if int(data['conf'][i]) > 60 and text.strip()]
-            
-            if not confidences or not texts:
+            if not result['success']:
                 return False, 0.0, ""
             
-            avg_confidence = sum(confidences) / len(confidences)
-            preview = ' '.join(texts[:10])  # First 10 words
+            text = result['text']
+            confidence = result['confidence']
             
-            # Check if confidence is high enough
-            if avg_confidence >= self.confidence_threshold * 100:
+            # Check if text exists and confidence is high enough
+            if text.strip() and confidence >= self.confidence_threshold * 100:
                 self.last_detection_time = current_time
-                return True, avg_confidence / 100, preview
+                preview = ' '.join(text.split()[:10])  # First 10 words
+                return True, confidence / 100, preview
             
-            return False, avg_confidence / 100, preview
+            return False, confidence / 100, text[:50] if text else ""
             
         except Exception as e:
-            logger.error(f"Error detecting text: {e}")
+            logger.error(f"Error detecting text with GPU OCR: {e}")
             return False, 0.0, ""
     
     def detect_code_patterns(self, text: str) -> bool:
@@ -127,6 +122,7 @@ class TextDetector:
         ]
         
         return any(indicator in text for indicator in code_indicators)
+
 
 
 class RealtimeOCRCamera:
@@ -274,8 +270,11 @@ class RealtimeOCRCamera:
                      text_preview: str, is_code: bool):
         """
         Automatically capture frame when text/code is detected.
+        Processes with GPU OCR to get enhanced results for FrameMetadata.
         """
         try:
+            from .gpu_services import get_gpu_ocr_service
+            
             timestamp = time.strftime("%Y%m%d_%H%M%S")
             filename = f"capture_{timestamp}.png"
             
@@ -283,20 +282,30 @@ class RealtimeOCRCamera:
             capture_path = f"/tmp/{filename}"
             cv2.imwrite(capture_path, frame)
             
+            # Get GPU OCR service and process enhanced frame
+            gpu_ocr = get_gpu_ocr_service()
+            enhanced_result = gpu_ocr.process_image_from_array(frame, enhanced=True)
+            
             # Add to queue for processing
             capture_data = {
                 'path': capture_path,
                 'timestamp': timestamp,
                 'confidence': confidence,
                 'preview': text_preview,
-                'is_code': is_code
+                'is_code': is_code,
+                'camera_id': f'camera_{self.camera_id}',
+                'enhanced_result': enhanced_result  # Include GPU OCR results
             }
             
             with self.capture_lock:
                 self.capture_queue.append(capture_data)
                 self.stats['auto_captures'] += 1
             
-            logger.info(f"Auto-captured: {filename} (confidence: {confidence:.2%})")
+            logger.info(
+                f"Auto-captured: {filename} (confidence: {confidence:.2%}, "
+                f"GPU: {enhanced_result.get('gpu_used', False)}, "
+                f"Blur: {enhanced_result.get('blur_variance', 0):.2f})"
+            )
             
         except Exception as e:
             logger.error(f"Error in auto-capture: {e}")
