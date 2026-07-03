@@ -5,7 +5,7 @@ django-cors-headers==4.3.1
 python-decouple==3.8
 
 # Database
-psycopg2-binary==2.9.9
+psycopg[binary]==3.3.4
 
 # Celery for async processing
 celery==5.3.4
@@ -15,13 +15,13 @@ django-celery-beat==2.5.0
 flower==2.0.1
 
 # OCR Libraries
-pytesseract==0.3.10
-Pillow==10.1.0
+pytesseract==0.3.13
+Pillow==12.3.0
 pdf2image==1.16.3
 
 # Additional image processing
-numpy==1.24.3
-opencv-python-headless==4.8.1.78
+numpy==2.4.0
+opencv-python-headless==4.13.0.92
 
 # WSGI Server
 gunicorn==21.2.0

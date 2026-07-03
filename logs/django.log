@@ -1,0 +1,210 @@
+WARNING 2026-07-03 13:52:59,360 apps 25380 2384 Could not auto-start camera: numpy.core.multiarray failed to import
+INFO 2026-07-03 13:58:50,440 apps 12968 19984 Auto-starting camera...
+INFO 2026-07-03 13:59:22,217 gpu_services 12968 19984 Initializing EasyOCR with languages: ['eng']
+WARNING 2026-07-03 13:59:22,222 easyocr 12968 19984 Downloading detection model, please wait. This may take several minutes depending upon your network connection.
+INFO 2026-07-03 13:59:39,787 easyocr 12968 19984 Download complete
+WARNING 2026-07-03 13:59:39,788 apps 12968 19984 Could not auto-start camera: ({'eng'}, 'is not supported')
+INFO 2026-07-03 14:00:16,309 apps 18672 14656 Auto-starting camera...
+WARNING 2026-07-03 14:00:18,972 gpu_services 18672 14656 No GPU detected. Using CPU for OCR (slower).
+INFO 2026-07-03 14:00:18,982 gpu_services 18672 14656 Initializing EasyOCR with languages: ['en']
+WARNING 2026-07-03 14:00:19,122 easyocr 18672 14656 Downloading recognition model, please wait. This may take several minutes depending upon your network connection.
+INFO 2026-07-03 14:00:21,051 easyocr 18672 14656 Download complete.
+INFO 2026-07-03 14:00:23,096 gpu_services 18672 14656 EasyOCR initialized successfully (GPU: False)
+INFO 2026-07-03 14:00:23,096 video_capture 18672 14656 TextDetector initialized with GPU OCR (GPU: False)
+INFO 2026-07-03 14:00:23,097 video_capture 18672 14656 Starting camera 0...
+INFO 2026-07-03 14:00:26,676 video_capture 18672 14656 Camera started successfully
+INFO 2026-07-03 14:02:12,581 apps 24516 26360 Auto-starting camera...
+WARNING 2026-07-03 14:02:15,509 gpu_services 24516 26360 No GPU detected. Using CPU for OCR (slower).
+INFO 2026-07-03 14:02:15,510 gpu_services 24516 26360 Initializing EasyOCR with languages: ['en']
+INFO 2026-07-03 14:02:17,640 gpu_services 24516 26360 EasyOCR initialized successfully (GPU: False)
+INFO 2026-07-03 14:02:17,640 video_capture 24516 26360 TextDetector initialized with GPU OCR (GPU: False)
+INFO 2026-07-03 14:02:17,641 video_capture 24516 26360 Starting camera 0...
+INFO 2026-07-03 14:02:20,247 video_capture 24516 26360 Camera started successfully
+INFO 2026-07-03 14:02:28,452 apps 16768 24664 Auto-starting camera...
+WARNING 2026-07-03 14:02:31,094 gpu_services 16768 24664 No GPU detected. Using CPU for OCR (slower).
+INFO 2026-07-03 14:02:31,094 gpu_services 16768 24664 Initializing EasyOCR with languages: ['en']
+INFO 2026-07-03 14:02:33,215 gpu_services 16768 24664 EasyOCR initialized successfully (GPU: False)
+INFO 2026-07-03 14:02:33,215 video_capture 16768 24664 TextDetector initialized with GPU OCR (GPU: False)
+INFO 2026-07-03 14:02:33,215 video_capture 16768 24664 Starting camera 0...
+INFO 2026-07-03 14:02:35,265 video_capture 16768 24664 Camera started successfully
+INFO 2026-07-03 14:02:37,182 apps 30564 25352 Auto-starting camera...
+WARNING 2026-07-03 14:02:39,756 gpu_services 30564 25352 No GPU detected. Using CPU for OCR (slower).
+INFO 2026-07-03 14:02:39,757 gpu_services 30564 25352 Initializing EasyOCR with languages: ['en']
+INFO 2026-07-03 14:02:41,785 gpu_services 30564 25352 EasyOCR initialized successfully (GPU: False)
+INFO 2026-07-03 14:02:41,785 video_capture 30564 25352 TextDetector initialized with GPU OCR (GPU: False)
+INFO 2026-07-03 14:02:41,785 video_capture 30564 25352 Starting camera 0...
+INFO 2026-07-03 14:02:44,917 video_capture 30564 25352 Camera started successfully
+INFO 2026-07-03 14:02:52,780 apps 30884 13228 Auto-starting camera...
+WARNING 2026-07-03 14:02:55,625 gpu_services 30884 13228 No GPU detected. Using CPU for OCR (slower).
+INFO 2026-07-03 14:02:55,625 gpu_services 30884 13228 Initializing EasyOCR with languages: ['en']
+INFO 2026-07-03 14:02:57,740 gpu_services 30884 13228 EasyOCR initialized successfully (GPU: False)
+INFO 2026-07-03 14:02:57,740 video_capture 30884 13228 TextDetector initialized with GPU OCR (GPU: False)
+INFO 2026-07-03 14:02:57,740 video_capture 30884 13228 Starting camera 0...
+INFO 2026-07-03 14:03:00,226 video_capture 30884 13228 Camera started successfully
+INFO 2026-07-03 14:03:01,394 apps 18120 9416 Auto-starting camera...
+WARNING 2026-07-03 14:03:08,541 gpu_services 18120 9416 No GPU detected. Using CPU for OCR (slower).
+INFO 2026-07-03 14:03:08,544 gpu_services 18120 9416 Initializing EasyOCR with languages: ['en']
+INFO 2026-07-03 14:03:14,657 gpu_services 18120 9416 EasyOCR initialized successfully (GPU: False)
+INFO 2026-07-03 14:03:14,657 video_capture 18120 9416 TextDetector initialized with GPU OCR (GPU: False)
+INFO 2026-07-03 14:03:14,658 video_capture 18120 9416 Starting camera 0...
+INFO 2026-07-03 14:03:15,669 video_capture 18120 9416 Camera started successfully
+INFO 2026-07-03 14:03:15,737 autoreload 18120 9416 Watching for file changes with StatReloader
+INFO 2026-07-03 14:03:21,122 apps 18416 12788 Auto-starting camera...
+WARNING 2026-07-03 14:03:24,734 gpu_services 18416 12788 No GPU detected. Using CPU for OCR (slower).
+INFO 2026-07-03 14:03:24,734 gpu_services 18416 12788 Initializing EasyOCR with languages: ['en']
+INFO 2026-07-03 14:03:27,491 gpu_services 18416 12788 EasyOCR initialized successfully (GPU: False)
+INFO 2026-07-03 14:03:27,491 video_capture 18416 12788 TextDetector initialized with GPU OCR (GPU: False)
+INFO 2026-07-03 14:03:27,491 video_capture 18416 12788 Starting camera 0...
+INFO 2026-07-03 14:03:30,731 video_capture 18416 12788 Camera started successfully
+INFO 2026-07-03 14:03:54,438 basehttp 18416 10716 "GET /api/health/ HTTP/1.1" 200 88
+INFO 2026-07-03 14:03:54,735 basehttp 18416 33968 "GET /api/health/ HTTP/1.1" 200 88
+INFO 2026-07-03 14:03:54,764 basehttp 18416 31624 "GET /api/documents/ HTTP/1.1" 200 52
+INFO 2026-07-03 14:04:16,287 views 18416 1964 Document uploaded: 5fe5ab12-74e4-46f3-b3c6-8a8fc10d472d - sample_ocr.png
+WARNING 2026-07-03 14:04:16,329 connection 18416 1964 No hostname was supplied. Reverting to default 'localhost'
+ERROR 2026-07-03 14:04:16,826 services 18416 1964 Error processing image C:\Users\rauna\OneDrive\Desktop\Codes\OCR\media\documents\2026\07\03\sample_ocr.png: tesseract is not installed or it's not in your PATH. See README file for more information.
+ERROR 2026-07-03 14:04:16,827 tasks 18416 1964 Error processing document 5fe5ab12-74e4-46f3-b3c6-8a8fc10d472d: tesseract is not installed or it's not in your PATH. See README file for more information.
+Traceback (most recent call last):
+  File "C:\Users\rauna\OneDrive\Desktop\Codes\OCR\ocr_app\tasks.py", line 62, in process_ocr_task
+    raise Exception(result_data.get('error', 'OCR processing failed'))
+Exception: tesseract is not installed or it's not in your PATH. See README file for more information.
+ERROR 2026-07-03 14:04:16,954 log 18416 1964 Internal Server Error: /api/documents/upload/
+Traceback (most recent call last):
+  File "C:\Users\rauna\OneDrive\Desktop\Codes\OCR\ocr_app\tasks.py", line 62, in process_ocr_task
+    raise Exception(result_data.get('error', 'OCR processing failed'))
+Exception: tesseract is not installed or it's not in your PATH. See README file for more information.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\rauna\AppData\Roaming\Python\Python314\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\rauna\AppData\Roaming\Python\Python314\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\rauna\AppData\Roaming\Python\Python314\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\rauna\AppData\Roaming\Python\Python314\site-packages\rest_framework\viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rauna\AppData\Roaming\Python\Python314\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\rauna\AppData\Roaming\Python\Python314\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\rauna\AppData\Roaming\Python\Python314\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\rauna\AppData\Roaming\Python\Python314\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\rauna\OneDrive\Desktop\Codes\OCR\ocr_app\views.py", line 114, in upload
+    task = process_ocr_task.delay(str(document.id), language)
+  File "C:\Users\rauna\AppData\Roaming\Python\Python314\site-packages\celery\app\task.py", line 444, in delay
+    return self.apply_async(args, kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\rauna\AppData\Roaming\Python\Python314\site-packages\celery\app\task.py", line 591, in apply_async
+    return self.apply(args, kwargs, task_id=task_id or uuid(),
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                      link=link, link_error=link_error, **options)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rauna\AppData\Roaming\Python\Python314\site-packages\celery\app\task.py", line 818, in apply
+    ret = tracer(task_id, args, kwargs, request)
+  File "C:\Users\rauna\AppData\Roaming\Python\Python314\site-packages\celery\app\trace.py", line 490, in trace_task
+    I, R, state, retval = on_error(
+                          ~~~~~~~~^
+        task_request, exc, RETRY, call_errbacks=False)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rauna\AppData\Roaming\Python\Python314\site-packages\celery\app\trace.py", line 477, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\rauna\OneDrive\Desktop\Codes\OCR\ocr_app\tasks.py", line 156, in process_ocr_task
+    raise self.retry(exc=exc, countdown=60 * (self.request.retries + 1))
+          ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rauna\AppData\Roaming\Python\Python314\site-packages\celery\app\task.py", line 749, in retry
+    raise ret
+celery.exceptions.Retry: Retry in 60s: Exception("tesseract is not installed or it's not in your PATH. See README file for more information.")
+ERROR 2026-07-03 14:04:16,964 basehttp 18416 1964 "POST /api/documents/upload/ HTTP/1.1" 500 170242
+WARNING 2026-07-03 14:04:19,779 log 18416 10716 Not Found: /api/documents//results/
+WARNING 2026-07-03 14:04:19,780 basehttp 18416 10716 "GET /api/documents//results/ HTTP/1.1" 404 8522
+INFO 2026-07-03 14:04:34,663 basehttp 18416 3540 "GET / HTTP/1.1" 200 293
+WARNING 2026-07-03 14:04:34,774 log 18416 3540 Not Found: /favicon.ico
+WARNING 2026-07-03 14:04:34,775 basehttp 18416 3540 "GET /favicon.ico HTTP/1.1" 404 2458
+INFO 2026-07-03 14:05:25,328 apps 13508 34684 Auto-starting camera...
+WARNING 2026-07-03 14:05:28,227 gpu_services 13508 34684 No GPU detected. Using CPU for OCR (slower).
+INFO 2026-07-03 14:05:28,227 gpu_services 13508 34684 Initializing EasyOCR with languages: ['en']
+INFO 2026-07-03 14:05:30,807 gpu_services 13508 34684 EasyOCR initialized successfully (GPU: False)
+INFO 2026-07-03 14:05:30,808 video_capture 13508 34684 TextDetector initialized with GPU OCR (GPU: False)
+INFO 2026-07-03 14:05:30,808 video_capture 13508 34684 Starting camera 0...
+INFO 2026-07-03 14:05:34,094 video_capture 13508 34684 Camera started successfully
+ERROR 2026-07-03 14:05:46,662 gpu_services 13508 1820 Error processing image array: module 'PIL.Image' has no attribute 'ANTIALIAS'
+INFO 2026-07-03 14:05:51,988 views 13508 13600 Document uploaded: e1d7ffbe-c2d4-48d6-b7ad-1d6f9e4a9da6 - sample_ocr.png
+WARNING 2026-07-03 14:05:52,045 connection 13508 13600 No hostname was supplied. Reverting to default 'localhost'
+WARNING 2026-07-03 14:05:52,613 services 13508 13600 Tesseract not available, falling back to EasyOCR for image processing
+ERROR 2026-07-03 14:05:55,102 gpu_services 13508 13600 Error processing image C:\Users\rauna\OneDrive\Desktop\Codes\OCR\media\documents\2026\07\03\sample_ocr_KipTDWF.png: module 'PIL.Image' has no attribute 'ANTIALIAS'
+ERROR 2026-07-03 14:05:55,107 tasks 13508 13600 Error processing document e1d7ffbe-c2d4-48d6-b7ad-1d6f9e4a9da6: module 'PIL.Image' has no attribute 'ANTIALIAS'
+Traceback (most recent call last):
+  File "C:\Users\rauna\OneDrive\Desktop\Codes\OCR\ocr_app\tasks.py", line 62, in process_ocr_task
+    raise Exception(result_data.get('error', 'OCR processing failed'))
+Exception: module 'PIL.Image' has no attribute 'ANTIALIAS'
+INFO 2026-07-03 14:05:55,143 trace 13508 13600 Task ocr_app.tasks.process_ocr_task[06369e39-5ba7-44bc-9e36-3d143a27ec68] retry: Retry in 60s: Exception("module 'PIL.Image' has no attribute 'ANTIALIAS'")
+WARNING 2026-07-03 14:05:55,635 services 13508 13600 Tesseract not available, falling back to EasyOCR for image processing
+ERROR 2026-07-03 14:05:57,088 gpu_services 13508 13600 Error processing image C:\Users\rauna\OneDrive\Desktop\Codes\OCR\media\documents\2026\07\03\sample_ocr_KipTDWF.png: module 'PIL.Image' has no attribute 'ANTIALIAS'
+ERROR 2026-07-03 14:05:57,088 tasks 13508 13600 Error processing document e1d7ffbe-c2d4-48d6-b7ad-1d6f9e4a9da6: module 'PIL.Image' has no attribute 'ANTIALIAS'
+Traceback (most recent call last):
+  File "C:\Users\rauna\OneDrive\Desktop\Codes\OCR\ocr_app\tasks.py", line 62, in process_ocr_task
+    raise Exception(result_data.get('error', 'OCR processing failed'))
+Exception: module 'PIL.Image' has no attribute 'ANTIALIAS'
+INFO 2026-07-03 14:05:57,123 trace 13508 13600 Task ocr_app.tasks.process_ocr_task[06369e39-5ba7-44bc-9e36-3d143a27ec68] retry: Retry in 120s: Exception("module 'PIL.Image' has no attribute 'ANTIALIAS'")
+WARNING 2026-07-03 14:05:57,620 services 13508 13600 Tesseract not available, falling back to EasyOCR for image processing
+ERROR 2026-07-03 14:05:58,927 gpu_services 13508 13600 Error processing image C:\Users\rauna\OneDrive\Desktop\Codes\OCR\media\documents\2026\07\03\sample_ocr_KipTDWF.png: module 'PIL.Image' has no attribute 'ANTIALIAS'
+ERROR 2026-07-03 14:05:58,929 tasks 13508 13600 Error processing document e1d7ffbe-c2d4-48d6-b7ad-1d6f9e4a9da6: module 'PIL.Image' has no attribute 'ANTIALIAS'
+Traceback (most recent call last):
+  File "C:\Users\rauna\OneDrive\Desktop\Codes\OCR\ocr_app\tasks.py", line 62, in process_ocr_task
+    raise Exception(result_data.get('error', 'OCR processing failed'))
+Exception: module 'PIL.Image' has no attribute 'ANTIALIAS'
+INFO 2026-07-03 14:05:58,963 trace 13508 13600 Task ocr_app.tasks.process_ocr_task[06369e39-5ba7-44bc-9e36-3d143a27ec68] retry: Retry in 180s: Exception("module 'PIL.Image' has no attribute 'ANTIALIAS'")
+WARNING 2026-07-03 14:05:59,514 services 13508 13600 Tesseract not available, falling back to EasyOCR for image processing
+ERROR 2026-07-03 14:06:00,991 gpu_services 13508 13600 Error processing image C:\Users\rauna\OneDrive\Desktop\Codes\OCR\media\documents\2026\07\03\sample_ocr_KipTDWF.png: module 'PIL.Image' has no attribute 'ANTIALIAS'
+ERROR 2026-07-03 14:06:00,993 tasks 13508 13600 Error processing document e1d7ffbe-c2d4-48d6-b7ad-1d6f9e4a9da6: module 'PIL.Image' has no attribute 'ANTIALIAS'
+Traceback (most recent call last):
+  File "C:\Users\rauna\OneDrive\Desktop\Codes\OCR\ocr_app\tasks.py", line 62, in process_ocr_task
+    raise Exception(result_data.get('error', 'OCR processing failed'))
+Exception: module 'PIL.Image' has no attribute 'ANTIALIAS'
+INFO 2026-07-03 14:06:01,060 trace 13508 13600 Task ocr_app.tasks.process_ocr_task[06369e39-5ba7-44bc-9e36-3d143a27ec68] succeeded in 2.0952486000023782s: {'success': False, 'error': 'Error processing document e1d7ffbe-c2d4-48d6-b7ad-1d6f9e4a9da6: module \'PIL.Image\' has no attribute \'ANTIALIAS\''}
+INFO 2026-07-03 14:06:01,082 basehttp 13508 13600 "POST /api/documents/upload/ HTTP/1.1" 201 2372
+INFO 2026-07-03 14:06:01,133 basehttp 13508 16136 "GET /api/documents/e1d7ffbe-c2d4-48d6-b7ad-1d6f9e4a9da6/results/ HTTP/1.1" 200 2
+INFO 2026-07-03 14:06:44,888 apps 8904 22212 Auto-starting camera...
+WARNING 2026-07-03 14:06:47,663 gpu_services 8904 22212 No GPU detected. Using CPU for OCR (slower).
+INFO 2026-07-03 14:06:47,663 gpu_services 8904 22212 Initializing EasyOCR with languages: ['en']
+INFO 2026-07-03 14:06:49,845 gpu_services 8904 22212 EasyOCR initialized successfully (GPU: False)
+INFO 2026-07-03 14:06:49,845 video_capture 8904 22212 TextDetector initialized with GPU OCR (GPU: False)
+INFO 2026-07-03 14:06:49,845 video_capture 8904 22212 Starting camera 0...
+INFO 2026-07-03 14:06:51,956 video_capture 8904 22212 Camera started successfully
+INFO 2026-07-03 14:07:01,515 views 8904 9860 Document uploaded: e020604d-8684-4e92-966b-0effaa99a45e - sample_ocr2.png
+WARNING 2026-07-03 14:07:01,551 connection 8904 9860 No hostname was supplied. Reverting to default 'localhost'
+WARNING 2026-07-03 14:07:02,045 services 8904 9860 Tesseract not available, falling back to EasyOCR for image processing
+INFO 2026-07-03 14:07:03,978 tasks 8904 9860 Successfully processed document e020604d-8684-4e92-966b-0effaa99a45e
+INFO 2026-07-03 14:07:04,045 trace 8904 9860 Task ocr_app.tasks.process_ocr_task[122a48c3-7625-4c01-8c45-5de57c884081] succeeded in 2.4828016000101343s: {'success': True, 'document_id': 'e020604d-8684-4e92-966b-0effaa99a45e', 'processing_time': 2.3792126178741455, 'pages_processed': 1}
+INFO 2026-07-03 14:07:04,080 basehttp 8904 9860 "POST /api/documents/upload/ HTTP/1.1" 201 1464
+INFO 2026-07-03 14:07:06,140 basehttp 8904 3800 "GET /api/documents/e020604d-8684-4e92-966b-0effaa99a45e/results/ HTTP/1.1" 200 307
+INFO 2026-07-03 14:10:23,099 basehttp 8904 20424 "GET / HTTP/1.1" 200 293
+WARNING 2026-07-03 14:10:23,375 log 8904 20424 Not Found: /favicon.ico
+WARNING 2026-07-03 14:10:23,381 basehttp 8904 20424 "GET /favicon.ico HTTP/1.1" 404 2458
+INFO 2026-07-03 14:10:39,043 basehttp 8904 10288 "GET / HTTP/1.1" 200 293
+INFO 2026-07-03 14:10:46,652 basehttp 8904 6732 "GET /api/status/ HTTP/1.1" 200 193
+INFO 2026-07-03 14:10:46,652 basehttp 8904 28980 "GET /api/health/ HTTP/1.1" 200 88
+INFO 2026-07-03 14:10:46,678 basehttp 8904 25808 "GET /api/health/ HTTP/1.1" 200 88
+INFO 2026-07-03 14:10:46,678 basehttp 8904 20476 "GET /api/status/ HTTP/1.1" 200 193
+INFO 2026-07-03 14:10:46,678 basehttp 8904 1076 "GET /api/documents/?order_by=-uploaded_at HTTP/1.1" 200 855
+INFO 2026-07-03 14:10:46,709 basehttp 8904 1632 "GET /api/documents/?order_by=-uploaded_at HTTP/1.1" 200 855
+INFO 2026-07-03 14:11:18,056 basehttp 8904 25020 "GET /api/documents/?order_by=-uploaded_at HTTP/1.1" 200 855
+INFO 2026-07-03 14:11:18,759 basehttp 8904 34756 "GET /api/documents/?order_by=-uploaded_at HTTP/1.1" 200 855
+INFO 2026-07-03 14:11:18,940 basehttp 8904 14268 "GET /api/documents/?order_by=-uploaded_at HTTP/1.1" 200 855
+INFO 2026-07-03 14:11:19,300 basehttp 8904 21836 "GET /api/documents/?order_by=-uploaded_at HTTP/1.1" 200 855
+INFO 2026-07-03 14:11:32,541 views 8904 22316 Document uploaded: 2e44599d-1eb8-4569-aca5-83f6129e9efb - 12.pdf
+ERROR 2026-07-03 14:11:32,560 services 8904 22316 Error processing PDF C:\Users\rauna\OneDrive\Desktop\Codes\OCR\media\documents\2026\07\03\12.pdf: Unable to get page count. Is poppler installed and in PATH?
+ERROR 2026-07-03 14:11:32,561 tasks 8904 22316 Error processing document 2e44599d-1eb8-4569-aca5-83f6129e9efb: Unable to get page count. Is poppler installed and in PATH?
+Traceback (most recent call last):
+  File "C:\Users\rauna\OneDrive\Desktop\Codes\OCR\ocr_app\tasks.py", line 63, in process_ocr_task
+    raise Exception(result_data.get('error', 'OCR processing failed'))
+Exception: Unable to get page count. Is poppler installed and in PATH?
+INFO 2026-07-03 14:11:32,611 trace 8904 22316 Task ocr_app.tasks.process_ocr_task[5a5b3cff-0cab-444f-9d80-55205bfda3af] succeeded in 0.06845969997812063s: {'success': False, 'error': 'Error processing document 2e44599d-1eb8-4569-aca5-83f6129e9efb: Unable to get page count. Is poppler installed and in PATH?'}
+INFO 2026-07-03 14:11:32,620 basehttp 8904 22316 "POST /api/documents/upload/ HTTP/1.1" 201 937
+INFO 2026-07-03 14:11:32,651 basehttp 8904 4800 "GET /api/documents/?order_by=-uploaded_at HTTP/1.1" 200 1117

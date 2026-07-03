@@ -199,10 +199,17 @@ python manage.py migrate
 # 7. Create superuser
 python manage.py createsuperuser
 
-# 8. Start services (separate terminals)
-python manage.py runserver              # Django
-celery -A ocr_project worker -l info    # Celery Worker
-celery -A ocr_project beat -l info      # Celery Beat
+# 8. Start backend (local quick mode: SQLite + eager tasks)
+python manage.py runserver --noreload
+
+# Optional full async mode (requires Redis/PostgreSQL and DB_ENGINE=postgres)
+# celery -A ocr_project worker -l info
+# celery -A ocr_project beat -l info
+
+# 9. Start frontend
+cd frontend
+npm install
+npm run dev
 ```
 
 ### Docker Installation

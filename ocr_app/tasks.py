@@ -6,6 +6,7 @@ import time
 import logging
 from celery import shared_task
 from django.core.files.base import File
+from django.conf import settings
 
 from .models import OCRDocument, OCRResult, CodeBlock, ProcessingLog
 from .services import OCRService
@@ -151,8 +152,8 @@ def process_ocr_task(self, document_id: str, language: str = 'eng'):
         except Exception as e:
             logger.error(f"Error updating document status: {str(e)}")
         
-        # Retry task if retries available
-        if self.request.retries < self.max_retries:
+        # Avoid retry loops when running with eager/local execution.
+        if (not getattr(settings, 'CELERY_TASK_ALWAYS_EAGER', False)) and self.request.retries < self.max_retries:
             raise self.retry(exc=exc, countdown=60 * (self.request.retries + 1))
         
         return {'success': False, 'error': error_msg}

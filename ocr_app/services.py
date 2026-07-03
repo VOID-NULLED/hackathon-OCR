@@ -15,6 +15,8 @@ import numpy as np
 from pdf2image import convert_from_path
 from django.conf import settings
 
+from .gpu_services import get_gpu_ocr_service
+
 logger = logging.getLogger(__name__)
 
 
@@ -76,8 +78,40 @@ class OCRService:
                 'success': True
             }
         
+        except pytesseract.TesseractNotFoundError:
+            logger.warning("Tesseract not available, falling back to EasyOCR for image processing")
+            return self._process_with_easyocr(image_path, language, start_time)
+
         except Exception as e:
             logger.error(f"Error processing image {image_path}: {str(e)}")
+            return {
+                'text': '',
+                'confidence': 0,
+                'language': language,
+                'processing_time': 0,
+                'word_count': 0,
+                'success': False,
+                'error': str(e)
+            }
+
+    def _process_with_easyocr(self, image_path: str, language: str, start_time: float) -> Dict:
+        """Fallback OCR path using EasyOCR when Tesseract is unavailable."""
+        try:
+            gpu_ocr = get_gpu_ocr_service()
+            result = gpu_ocr.process_image(image_path, language='en' if language == 'eng' else language)
+            processing_time = time.time() - start_time
+
+            return {
+                'text': (result.get('text') or '').strip(),
+                'confidence': round(float(result.get('confidence') or 0), 2),
+                'language': language,
+                'processing_time': round(processing_time, 2),
+                'word_count': len((result.get('text') or '').split()),
+                'success': bool(result.get('success', False)),
+                'error': result.get('error')
+            }
+        except Exception as e:
+            logger.error(f"EasyOCR fallback failed for image {image_path}: {str(e)}")
             return {
                 'text': '',
                 'confidence': 0,

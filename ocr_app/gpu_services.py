@@ -9,9 +9,14 @@ import time
 from typing import Dict, List, Tuple, Optional
 from pathlib import Path
 
+from PIL import Image
+
+# Pillow 10+ removed Image.ANTIALIAS; EasyOCR still references it in some code paths.
+if not hasattr(Image, 'ANTIALIAS'):
+    Image.ANTIALIAS = Image.Resampling.LANCZOS
+
 import easyocr
 import torch
-from PIL import Image
 import cv2
 import numpy as np
 from pdf2image import convert_from_path
@@ -30,14 +35,17 @@ class GPUOCRService:
         # Check GPU availability
         self.use_gpu = torch.cuda.is_available()
         if self.use_gpu:
-            logger.info(f"🚀 GPU DETECTED: {torch.cuda.get_device_name(0)}")
+            logger.info(f"GPU DETECTED: {torch.cuda.get_device_name(0)}")
             logger.info(f"   CUDA Version: {torch.version.cuda}")
             logger.info(f"   GPU Memory: {torch.cuda.get_device_properties(0).total_memory / 1024**3:.2f} GB")
         else:
-            logger.warning("⚠️  No GPU detected. Using CPU for OCR (slower).")
+            logger.warning("No GPU detected. Using CPU for OCR (slower).")
         
         # Initialize EasyOCR reader with GPU support
-        self.supported_languages = getattr(settings, 'OCR_LANGUAGES', ['en'])
+        configured_languages = getattr(settings, 'OCR_LANGUAGES', ['en'])
+        if not isinstance(configured_languages, list):
+            configured_languages = [configured_languages]
+        self.supported_languages = [self._normalize_easyocr_language(code) for code in configured_languages]
         logger.info(f"Initializing EasyOCR with languages: {self.supported_languages}")
         
         self.reader = easyocr.Reader(
@@ -46,7 +54,15 @@ class GPUOCRService:
             verbose=False
         )
         
-        logger.info(f"✅ EasyOCR initialized successfully (GPU: {self.use_gpu})")
+        logger.info(f"EasyOCR initialized successfully (GPU: {self.use_gpu})")
+
+    def _normalize_easyocr_language(self, language_code: str) -> str:
+        """Map configured language codes to EasyOCR expected values."""
+        code = (language_code or '').strip().lower()
+        mapping = {
+            'eng': 'en',
+        }
+        return mapping.get(code, code or 'en')
     
     def calculate_blur_variance(self, image: np.ndarray) -> float:
         """
